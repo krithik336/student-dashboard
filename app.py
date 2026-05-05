@@ -2,15 +2,16 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
-# Page settings
-st.set_page_config(page_title="Student Performance Dashboard", layout="wide")
+# Page config
+st.set_page_config(page_title="Student Dashboard", layout="wide")
 
 # Title
 st.title("🎓 Student Performance Dashboard")
-st.markdown("Interactive analysis of student performance")
+st.markdown("Interactive analysis + prediction of student performance")
 
-# Load dataset
+# Load data
 df = pd.read_csv("StudentsPerformance.csv")
 
 # Clean column names
@@ -21,26 +22,41 @@ df["average_score"] = (
     df["math_score"] + df["reading_score"] + df["writing_score"]
 ) / 3
 
-# Sidebar filters
+# =========================
+# 🤖 Train Model
+# =========================
+X = df[["reading_score", "writing_score"]]
+y = df["math_score"]
+
+model = LinearRegression()
+model.fit(X, y)
+
+# =========================
+# 🔍 Sidebar Filters
+# =========================
 st.sidebar.header("Filters")
 
-gender = st.sidebar.selectbox("Select Gender", df["gender"].unique())
-prep = st.sidebar.selectbox("Test Preparation", df["test_preparation_course"].unique())
+gender = st.sidebar.selectbox("Gender", df["gender"].unique())
+prep = st.sidebar.selectbox("Preparation", df["test_preparation_course"].unique())
 
 filtered_df = df[
     (df["gender"] == gender) &
     (df["test_preparation_course"] == prep)
 ]
 
-# Metrics
+# =========================
+# 📊 Metrics
+# =========================
 st.subheader("📊 Key Metrics")
-col1, col2, col3 = st.columns(3)
 
-col1.metric("Average Score", round(filtered_df["average_score"].mean(), 2))
-col2.metric("Highest Score", round(filtered_df["average_score"].max(), 2))
-col3.metric("Lowest Score", round(filtered_df["average_score"].min(), 2))
+c1, c2, c3 = st.columns(3)
+c1.metric("Average Score", round(filtered_df["average_score"].mean(), 2))
+c2.metric("Highest Score", round(filtered_df["average_score"].max(), 2))
+c3.metric("Lowest Score", round(filtered_df["average_score"].min(), 2))
 
-# Charts
+# =========================
+# 📈 Charts
+# =========================
 st.subheader("📈 Visual Insights")
 
 col1, col2 = st.columns(2)
@@ -74,12 +90,49 @@ fig, ax = plt.subplots()
 sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm", ax=ax)
 st.pyplot(fig)
 
-# Storytelling section
-st.subheader("📖 Key Findings")
+# =========================
+# 📄 Data Preview
+# =========================
+st.subheader("📄 Dataset Preview")
 
-st.write("""
-- Students who completed test preparation scored higher  
-- Reading and writing scores are strongly correlated  
-- Most students fall in mid-score range  
-- Gender shows slight variation in performance  
-""")
+if st.checkbox("Show Raw Data"):
+    st.write(df.head())
+
+# =========================
+# ⬇ Download Button
+# =========================
+st.download_button(
+    label="Download Dataset",
+    data=df.to_csv(index=False),
+    file_name="students_data.csv",
+    mime="text/csv"
+)
+
+# =========================
+# 📖 Insights
+# =========================
+st.subheader("📖 Key Insights")
+
+st.success("Students who completed test preparation scored higher.")
+st.info("Reading and writing scores are strongly correlated.")
+st.warning("Most students fall in mid-performance range.")
+
+# =========================
+# 🔮 Prediction Section
+# =========================
+st.subheader("🔮 Predict Math Score")
+
+st.markdown("Enter reading and writing scores:")
+
+col1, col2 = st.columns(2)
+
+reading_input = col1.number_input("Reading Score", 0, 100, 50)
+writing_input = col2.number_input("Writing Score", 0, 100, 50)
+
+if st.button("Predict"):
+    prediction = model.predict([[reading_input, writing_input]])
+    st.success(f"Predicted Math Score: {round(prediction[0], 2)}")
+
+# Footer
+st.markdown("---")
+st.markdown("🚀 Built with Streamlit | Student Data Analytics Project")
