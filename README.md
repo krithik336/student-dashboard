@@ -1,101 +1,135 @@
-#  Smart Academic Prediction Dashboard 
-An interactive machine learning and analytics dashboard built using Python and Streamlit.  
-This project analyzes student academic performance and provides predictive insights using multiple machine learning algorithms.
+# Smart Academic Prediction Dashboard
+
+An interactive machine learning and analytics dashboard built using Python and Streamlit.
+This project analyzes student academic performance and provides predictive insights using multiple machine learning algorithms with a modern interactive dashboard interface.
 
 ---
 
-##  Live Demo
+## Live Demo
 
 🔗 https://student-dashboard-5xp2hcthqepcqim3xbtp39.streamlit.app/
 
 ---
 
-## Project Overview
+## GitHub Repository
 
-This project focuses on educational data analytics and predictive modeling using machine learning techniques.
+🔗 https://github.com/krithik336/student-dashboard
+
+---
+
+# Project Overview
+
+This project focuses on educational data analytics, Exploratory Data Analysis (EDA), and predictive modeling using machine learning techniques.
 
 The dashboard transforms raw academic data into meaningful insights through:
-- interactive visualizations
-- performance analytics
-- machine learning predictions
-- model comparison reports
 
-Users can dynamically explore data, compare algorithms, and generate predictive outputs through a premium interactive interface.
+* Interactive Visualizations
+* Exploratory Data Analysis (EDA)
+* Performance Analytics
+* Machine Learning Predictions
+* Model Comparison Reports
+* Dynamic Dashboard Interface
+* Dark & Light Theme Support
 
----
-
-## Key Features
-
-- Data Cleaning & Preprocessing
-- Interactive Data Visualizations
-- Correlation Heatmaps
-- Multiple Machine Learning Models
-- Actual vs Predicted Analysis
-- Dynamic Target Variable Selection
-- Model Comparison Dashboard
-- Downloadable Prediction Reports
-- Live Deployment using Streamlit Cloud
+Users can dynamically explore data, compare machine learning algorithms, and generate predictive outputs through a professional analytics dashboard.
 
 ---
 
-## 🤖 Machine Learning Models Used
+# Key Features
+
+* Data Cleaning & Preprocessing
+* Interactive Data Visualizations
+* Correlation Heatmaps
+* Statistical Summary Analysis
+* Missing Value Analysis
+* Multiple Machine Learning Models
+* Actual vs Predicted Analysis
+* Dynamic Target Variable Selection
+* Model Comparison Dashboard
+* Downloadable Prediction Reports
+* Responsive Dashboard UI
+* Dark / Light Theme Toggle
+* Live Deployment using Streamlit Cloud
+
+---
+
+# Exploratory Data Analysis (EDA)
+
+The EDA module provides:
+
+* Dataset Overview
+* Statistical Summary
+* Correlation Analysis
+* Feature Distribution Analysis
+* Missing Value Inspection
+* Interactive Visual Analytics
+
+Visualizations are implemented using:
+
+* Matplotlib
+* Seaborn
+
+---
+
+# Machine Learning Models Used
 
 The dashboard implements and compares multiple regression models:
 
-| Model | Purpose |
-|---|---|
-| Linear Regression | Baseline prediction |
-| Decision Tree Regressor | Non-linear pattern learning |
+| Model                   | Purpose                      |
+| ----------------------- | ---------------------------- |
+| Linear Regression       | Baseline prediction          |
+| Decision Tree Regressor | Non-linear pattern learning  |
 | Random Forest Regressor | Advanced ensemble prediction |
 
 ---
 
-## Model Evaluation Metrics
+# Model Evaluation Metrics
 
 The following metrics are used to evaluate model performance:
 
-- R² Score
-- Mean Absolute Error (MAE)
-- Root Mean Squared Error (RMSE)
+* R² Score
+* Mean Absolute Error (MAE)
+* Root Mean Squared Error (RMSE)
 
 ---
 
-## Key Insights
+# Key Insights
 
-- Student academic features show strong inter-correlation
-- Ensemble models generally provide better prediction accuracy
-- Data visualization improves understanding of academic patterns
-- Machine learning can effectively estimate academic outcomes
-
----
-
-## Tech Stack
-
-- **Python**
-- **Pandas**
-- **NumPy**
-- **Matplotlib**
-- **Seaborn**
-- **Scikit-learn**
-- **Streamlit**
-- **Git & GitHub**
+* Student academic features show strong inter-correlation
+* Ensemble models generally provide better prediction accuracy
+* Data visualization improves understanding of academic patterns
+* Machine learning can effectively estimate academic outcomes
+* EDA techniques help identify performance trends and feature relationships
 
 ---
 
-## Model Prediction Report
+# Tech Stack
+
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* Streamlit
+* Git & GitHub
+
+---
+
+# Model Prediction Report
 
 The project includes a downloadable machine learning evaluation report containing:
 
-- Model comparison metrics
-- Prediction performance analysis
-- Accuracy evaluation
-- Error metrics summary
+* Model comparison metrics
+* Prediction performance analysis
+* Accuracy evaluation
+* Error metrics summary
 
- [Download Model Results](./model_results.csv)
+[Download Model Results](./model_results.csv)
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```text
 student-dashboard/
@@ -110,30 +144,32 @@ student-dashboard/
 
 ---
 
-## How to Run Locally
+# How to Run Locally
 
 ```bash
 git clone https://github.com/krithik336/student-dashboard.git
+
 cd student-dashboard
 
 pip install -r requirements.txt
 
-python -m streamlit run app.py
+streamlit run app.py
 ```
 
 ---
 
-## Future Improvements
+# Future Improvements
 
-- Feature Importance Visualization
-- Confusion Matrix & ROC Curves
-- AI Chatbot Integration
-- Advanced Theme Switching
-- Real-Time Data Analytics
+* Feature Importance Visualization
+* Advanced Analytics Dashboard
+* AI Chatbot Integration
+* Real-Time Data Analytics
+* Additional ML Algorithms
+* Advanced UI Components
 
 ---
 
-## Disclaimer
+# Disclaimer
 
 Predictions generated by this dashboard are based on machine learning models trained on the available dataset.
 
@@ -143,22 +179,20 @@ This project is intended for educational and analytical purposes only.
 
 ---
 
-## Developed By
+# Developed By
 
-**Krithik**
+Krithik
 
-🔗 GitHub: https://github.com/krithik336
-
----
-
-## Project Highlights
-
-End-to-End Machine Learning Workflow  
-Data Analytics & Visualization  
-Interactive Streamlit Dashboard  
-Multiple ML Algorithms  
-Live Deployment  
+GitHub: https://github.com/krithik336
 
 ---
----
 
+# Project Highlights
+
+* End-to-End Machine Learning Workflow
+* Exploratory Data Analysis (EDA)
+* Interactive Streamlit Dashboard
+* Multiple ML Algorithms
+* Professional Dashboard UI
+* Dark / Light Theme Support
+* Live Deployment
