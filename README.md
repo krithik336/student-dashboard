@@ -28,8 +28,6 @@ The dashboard transforms raw academic data into meaningful insights through:
 * Performance Analytics
 * Machine Learning Predictions
 * Model Comparison Reports
-* Dynamic Dashboard Interface
-* Dark & Light Theme Support
 
 Users can dynamically explore data, compare machine learning algorithms, and generate predictive outputs through a professional analytics dashboard.
 
@@ -47,9 +45,7 @@ Users can dynamically explore data, compare machine learning algorithms, and gen
 * Dynamic Target Variable Selection
 * Model Comparison Dashboard
 * Downloadable Prediction Reports
-* Responsive Dashboard UI
-* Dark / Light Theme Toggle
-* Live Deployment using Streamlit Cloud
+
 
 ---
 
@@ -194,5 +190,3 @@ GitHub: https://github.com/krithik336
 * Interactive Streamlit Dashboard
 * Multiple ML Algorithms
 * Professional Dashboard UI
-* Dark / Light Theme Support
-* Live Deployment
