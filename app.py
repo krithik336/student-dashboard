@@ -16,124 +16,222 @@ from sklearn.metrics import (
 )
 
 # =========================
-# 🎨 PAGE CONFIG
+# PAGE CONFIG
 # =========================
 st.set_page_config(
-    page_title="Student ML Dashboard",
-    page_icon="🎓",
+    page_title="Academic Analytics Dashboard",
     layout="wide"
 )
 
 # =========================
-# 🌈 PREMIUM GLASS UI
+# THEME TOGGLE
 # =========================
-st.markdown("""
+theme = st.toggle(
+    "Dark Mode",
+    value=False
+)
+
+# =========================
+# DYNAMIC COLORS
+# =========================
+if theme:
+
+    bg_color = "#0F172A"
+    card_color = "#1E293B"
+    text_color = "#F8FAFC"
+    secondary_text = "#CBD5E1"
+    border_color = "#334155"
+
+    metric_text = "#FFFFFF"
+    nav_text = "#FFFFFF"
+
+else:
+
+    bg_color = "#F4F7FE"
+    card_color = "#FFFFFF"
+    text_color = "#111827"
+    secondary_text = "#6B7280"
+    border_color = "#E5E7EB"
+
+    metric_text = "#111827"
+    nav_text = "#111827"
+
+# =========================
+# MODERN UI
+# =========================
+st.markdown(f"""
 <style>
 
-/* Background */
-.stApp {
-    background: linear-gradient(to right, #141E30, #243B55);
-    color: white;
-}
+/* Main App */
+.stApp {{
+    background: {bg_color};
+    color: {text_color};
+}}
 
-/* Hide streamlit menu */
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
+/* Global Text */
+body {{
+    color: {text_color};
+}}
 
-/* Titles */
-h1 {
-    color: white;
-    font-size: 52px !important;
-    font-weight: 700 !important;
-}
+/* Streamlit Markdown */
+[data-testid="stMarkdownContainer"] * {{
+    color: {text_color} !important;
+}}
 
-h2, h3 {
-    color: #00E5FF;
-}
+/* Hide Branding */
+#MainMenu {{visibility:hidden;}}
+footer {{visibility:hidden;}}
+header {{visibility:hidden;}}
 
-/* Metric cards */
-div[data-testid="metric-container"] {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 20px;
+/* Remove Sidebar */
+section[data-testid="stSidebar"] {{
+    display:none;
+}}
+
+/* Headers */
+h1, h2, h3, h4 {{
+    color: {text_color} !important;
+}}
+
+/* Labels */
+label {{
+    color: {text_color} !important;
+    font-weight: 600;
+}}
+
+/* Top Header */
+.top-header {{
+    background: {card_color};
+    padding: 25px;
+    border-radius: 24px;
+    border: 1px solid {border_color};
+    margin-bottom: 20px;
+}}
+
+/* Dashboard Title */
+.dashboard-title {{
+    font-size: 42px;
+    font-weight: 700;
+    color: {text_color};
+}}
+
+/* Subtitle */
+.dashboard-subtitle {{
+    color: {secondary_text};
+    font-size: 16px;
+}}
+
+/* Metric Cards */
+div[data-testid="metric-container"] {{
+    background: {card_color};
     border-radius: 18px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-}
+    padding: 18px;
+    border: 1px solid {border_color};
+}}
+
+/* Metric Values */
+div[data-testid="metric-container"] > div {{
+    color: {metric_text} !important;
+    font-weight: 700;
+}}
+
+/* Metric Labels */
+div[data-testid="metric-container"] label {{
+    color: {secondary_text} !important;
+}}
 
 /* Buttons */
-.stButton > button {
+.stButton > button {{
     width: 100%;
-    background: linear-gradient(90deg, #00C6FF, #0072FF);
+    background: linear-gradient(135deg, #2563EB, #1D4ED8);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 12px;
-    font-size: 16px;
     font-weight: 600;
-}
+    transition: 0.3s ease;
+}}
+
+.stButton > button:hover {{
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+    transform: translateY(-2px);
+}}
 
 /* Download Button */
-.stDownloadButton > button {
-    background: linear-gradient(90deg, #00C6FF, #0072FF);
-    color: white;
+.stDownloadButton > button {{
+    width: 100%;
+    background: linear-gradient(135deg, #2563EB, #1D4ED8) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 14px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    box-shadow: 0px 4px 12px rgba(37,99,235,0.25);
+    transition: 0.3s ease;
+}}
+
+.stDownloadButton > button:hover {{
+    background: linear-gradient(135deg, #1D4ED8, #1E40AF) !important;
+    transform: translateY(-2px);
+}}
+
+/* Selectbox */
+.stSelectbox div[data-baseweb="select"] {{
+    background: {card_color};
+    color: {text_color} !important;
     border-radius: 12px;
-    border: none;
-    padding: 12px;
-}
+    border: 1px solid {border_color};
+}}
+
+/* Dropdown Text */
+div[data-baseweb="popover"] * {{
+    color: black !important;
+}}
+
+/* Number Input */
+.stNumberInput input {{
+    background: {card_color};
+    color: {text_color} !important;
+    border-radius: 12px;
+    border: 1px solid {border_color};
+}}
 
 /* Dataframe */
-[data-testid="stDataFrame"] {
-    background: rgba(255,255,255,0.06);
-    border-radius: 15px;
-    padding: 10px;
-}
+[data-testid="stDataFrame"] {{
+    background: {card_color};
+    border-radius: 18px;
+    border: 1px solid {border_color};
+}}
 
-/* Input boxes */
-.stNumberInput input {
-    background-color: rgba(255,255,255,0.08);
-    color: white;
-    border-radius: 10px;
-}
+/* Dataframe Text */
+[data-testid="stDataFrame"] * {{
+    color: {text_color} !important;
+}}
 
-/* Select box */
-.stSelectbox div[data-baseweb="select"] {
-    background-color: rgba(255,255,255,0.08);
-    border-radius: 10px;
-}
+/* Radio Buttons */
+.stRadio label {{
+    color: {nav_text} !important;
+    font-weight: 600;
+    font-size: 16px;
+}}
+
+/* Radio Group */
+div[role="radiogroup"] {{
+    display:flex;
+    gap:20px;
+}}
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================
-# 🏷 HERO SECTION
-# =========================
-st.markdown("""
-<div style='padding:30px 10px 10px 10px;'>
-
-<h1 style='text-align:center;'>
-Smart Academic Prediction Dashboard
-</h1>
-
-<p style='text-align:center;
-font-size:20px;
-color:#D3D3D3;'>
-
-Machine Learning • Analytics • Predictions • Insights
-
-</p>
-
-</div>
-""", unsafe_allow_html=True)
-
-# =========================
-# 📂 LOAD DATASET
+# LOAD DATASET
 # =========================
 df = pd.read_csv("orginaldataset.csv")
 
 # =========================
-# 🧹 CLEAN COLUMNS
+# CLEAN COLUMNS
 # =========================
 df.columns = (
     df.columns
@@ -143,7 +241,7 @@ df.columns = (
 )
 
 # =========================
-# 🩹 HANDLE MISSING VALUES
+# HANDLE MISSING VALUES
 # =========================
 numeric_df = df.select_dtypes(include=np.number)
 
@@ -152,371 +250,280 @@ df[numeric_df.columns] = numeric_df.fillna(
 )
 
 # =========================
-# 📄 DATASET PREVIEW
+# TOP DASHBOARD
 # =========================
-st.subheader("📄 Dataset Preview")
+st.markdown(f"""
+<div class="top-header">
 
-if st.checkbox("Show Dataset"):
-    st.dataframe(df.head())
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+">
 
-# =========================
-# 📊 DATASET OVERVIEW
-# =========================
-numeric_cols = df.select_dtypes(
-    include=['int64', 'float64']
-).columns.tolist()
+<div>
 
-st.subheader("📊 Dataset Overview")
+<div class="dashboard-title">
+Academic Analytics Dashboard
+</div>
 
-c1, c2, c3 = st.columns(3)
+<div class="dashboard-subtitle">
+Machine Learning • EDA • Predictions • Insights
+</div>
 
-c1.metric("📄 Rows", df.shape[0])
-c2.metric("📑 Columns", df.shape[1])
-c3.metric("🎯 Numeric Features", len(numeric_cols))
+</div>
 
-# =========================
-# 🔥 CORRELATION HEATMAP
-# =========================
-st.subheader("🔥 GPA Correlation Heatmap")
+<div style="
+display:flex;
+gap:10px;
+align-items:center;
+">
 
-corr = df.corr(numeric_only=True)
 
-if "gpa" in corr.columns:
+</div>
 
-    corr_target = corr[["gpa"]].sort_values(
-        by="gpa",
-        ascending=False
-    )
-
-else:
-
-    first_col = corr.columns[0]
-
-    corr_target = corr[[first_col]].sort_values(
-        by=first_col,
-        ascending=False
-    )
-
-fig, ax = plt.subplots(figsize=(5, 6))
-
-sns.heatmap(
-    corr_target,
-    annot=True,
-    cmap="coolwarm",
-    fmt=".2f",
-    linewidths=0.5,
-    annot_kws={"size": 8},
-    ax=ax
-)
-
-plt.yticks(fontsize=9)
-
-st.pyplot(fig)
-
-# =========================
-# 🎯 TARGET VARIABLE
-# =========================
-st.subheader("🎯 Select Target Variable")
-
-target = st.selectbox(
-    "Choose column to predict",
-    numeric_cols
-)
-
-# =========================
-# 🔍 FEATURES
-# =========================
-features = [
-    col for col in numeric_cols
-    if col != target
-]
-
-X = df[features]
-y = df[target]
-
-# =========================
-# ✂️ TRAIN TEST SPLIT
-# =========================
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-
-# =========================
-# 🤖 MODEL TRAINING
-# =========================
-
-# Linear Regression
-lr_model = LinearRegression()
-lr_model.fit(X_train, y_train)
-
-# Decision Tree
-dt_model = DecisionTreeRegressor(
-    random_state=42
-)
-dt_model.fit(X_train, y_train)
-
-# Random Forest
-rf_model = RandomForestRegressor(
-    random_state=42
-)
-rf_model.fit(X_train, y_train)
-
-# =========================
-# 📈 PREDICTIONS
-# =========================
-lr_pred = lr_model.predict(X_test)
-dt_pred = dt_model.predict(X_test)
-rf_pred = rf_model.predict(X_test)
-
-# =========================
-# 📊 METRICS
-# =========================
-lr_score = r2_score(y_test, lr_pred)
-dt_score = r2_score(y_test, dt_pred)
-rf_score = r2_score(y_test, rf_pred)
-
-# =========================
-# 📋 PERFORMANCE TABLE
-# =========================
-st.subheader("📊 Model Performance")
-
-results_df = pd.DataFrame({
-
-    "Model": [
-        "Linear Regression",
-        "Decision Tree",
-        "Random Forest"
-    ],
-
-    "R² Score": [
-        lr_score,
-        dt_score,
-        rf_score
-    ],
-
-    "MAE": [
-        mean_absolute_error(y_test, lr_pred),
-        mean_absolute_error(y_test, dt_pred),
-        mean_absolute_error(y_test, rf_pred)
-    ],
-
-    "RMSE": [
-        np.sqrt(mean_squared_error(y_test, lr_pred)),
-        np.sqrt(mean_squared_error(y_test, dt_pred)),
-        np.sqrt(mean_squared_error(y_test, rf_pred))
-    ]
-})
-
-st.dataframe(
-    results_df.style.highlight_max(axis=0)
-)
-
-# =========================
-# 🏆 BEST MODEL
-# =========================
-best_model = results_df.loc[
-    results_df["R² Score"].idxmax(),
-    "Model"
-]
-
-st.success(f"🏆 Best Performing Model: {best_model}")
-
-# =========================
-# 📈 VISUALIZATION SECTION
-# =========================
-col1, col2 = st.columns(2)
-
-# -------------------------
-# Accuracy Graph
-# -------------------------
-with col1:
-
-    st.subheader("📈 Model Accuracy")
-
-    fig, ax = plt.subplots(figsize=(4, 3))
-
-    models = [
-        "Linear",
-        "Decision Tree",
-        "Random Forest"
-    ]
-
-    scores = [
-        lr_score,
-        dt_score,
-        rf_score
-    ]
-
-    ax.bar(models, scores)
-
-    ax.set_ylabel("R² Score")
-    ax.set_facecolor("#1c1c1c")
-
-    st.pyplot(fig)
-
-# -------------------------
-# Actual vs Predicted
-# -------------------------
-with col2:
-
-    st.subheader("📉 Actual vs Predicted")
-
-    selected_model_graph = st.selectbox(
-        "Select Model",
-        [
-            "Linear Regression",
-            "Decision Tree",
-            "Random Forest"
-        ]
-    )
-
-    if selected_model_graph == "Linear Regression":
-        preds = lr_pred
-
-    elif selected_model_graph == "Decision Tree":
-        preds = dt_pred
-
-    else:
-        preds = rf_pred
-
-    fig, ax = plt.subplots(figsize=(4, 3))
-
-    ax.scatter(y_test, preds)
-
-    ax.set_xlabel("Actual")
-    ax.set_ylabel("Predicted")
-    ax.set_facecolor("#1c1c1c")
-
-    st.pyplot(fig)
-
-# =========================
-# 🔮 PREDICTION SECTION
-# =========================
-st.subheader("🔮 Predict Values")
-
-selected_model = st.selectbox(
-    "Choose Prediction Model",
-    [
-        "Linear Regression",
-        "Decision Tree",
-        "Random Forest"
-    ]
-)
-
-input_data = []
-
-cols = st.columns(2)
-
-for i, feature in enumerate(features):
-
-    value = cols[i % 2].number_input(
-        f"{feature}",
-        value=float(df[feature].mean())
-    )
-
-    input_data.append(value)
-
-# =========================
-# 🎯 PREDICTION BUTTON
-# =========================
-if st.button("Predict"):
-
-    input_array = np.array(
-        input_data
-    ).reshape(1, -1)
-
-    if selected_model == "Linear Regression":
-
-        prediction = lr_model.predict(
-            input_array
-        )
-
-        accuracy = lr_score
-
-    elif selected_model == "Decision Tree":
-
-        prediction = dt_model.predict(
-            input_array
-        )
-
-        accuracy = dt_score
-
-    else:
-
-        prediction = rf_model.predict(
-            input_array
-        )
-
-        accuracy = rf_score
-
-    st.success(
-        f"🎯 Predicted {target}: "
-        f"{round(prediction[0], 2)}"
-    )
-
-    st.info(
-        f"📊 Model Accuracy: "
-        f"{round(accuracy, 3)}"
-    )
-
-# =========================
-# 📥 DOWNLOAD REPORT
-# =========================
-csv = results_df.to_csv(index=False)
-
-st.download_button(
-    label="⬇ Download Model Report",
-    data=csv,
-    file_name="model_results.csv",
-    mime="text/csv"
-)
-
-# =========================
-# 🚀 PROJECT SUMMARY
-# =========================
-st.markdown("""
-<div style='
-background: rgba(255,255,255,0.08);
-padding:20px;
-border-radius:15px;
-margin-top:20px;
-text-align:center;'>
-
-<h3 style='color:#00E5FF;'>
-🚀 Project Summary
-</h3>
-
-<p>
-This dashboard compares multiple Machine Learning algorithms
-for predicting student academic performance using real-world data.
-</p>
+</div>
 
 </div>
 """, unsafe_allow_html=True)
 
 # =========================
-# 🚀 FOOTER
+# KPI DASHBOARD
 # =========================
+numeric_cols = df.select_dtypes(
+    include=['int64', 'float64']
+).columns.tolist()
+
+k1, k2, k3, k4 = st.columns(4)
+
+k1.metric("Total Rows", df.shape[0])
+k2.metric("Columns", df.shape[1])
+k3.metric("Features", len(numeric_cols))
+k4.metric("ML Models", 3)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
 # =========================
-# ⚠️ DISCLAIMER
+# TOP NAVIGATION
 # =========================
-st.markdown("""
+section = st.radio(
+    "Navigation",
+    [
+        "Home",
+        "EDA Analysis",
+        "Machine Learning",
+        "Predictions"
+    ],
+    horizontal=True
+)
+
+st.markdown("---")
+
+# =========================
+# HOME
+# =========================
+if section == "Home":
+
+    st.subheader("Dataset Preview")
+    st.dataframe(df.head())
+
+    st.subheader("Correlation Heatmap")
+
+    fig, ax = plt.subplots(figsize=(8,5))
+
+    sns.heatmap(
+        df.corr(numeric_only=True),
+        cmap="coolwarm",
+        annot=False,
+        ax=ax
+    )
+
+    st.pyplot(fig)
+
+# =========================
+# EDA ANALYSIS
+# =========================
+if section == "EDA Analysis":
+
+    st.header("Exploratory Data Analysis")
+
+    st.dataframe(df.describe())
+
+    st.subheader("Missing Values")
+    st.write(df.isnull().sum())
+
+    if "gpa" in df.columns:
+
+        st.subheader("GPA Distribution")
+
+        fig, ax = plt.subplots(figsize=(6,4))
+
+        sns.histplot(
+            df["gpa"],
+            kde=True,
+            ax=ax
+        )
+
+        st.pyplot(fig)
+
+# =========================
+# MACHINE LEARNING
+# =========================
+if section == "Machine Learning":
+
+    st.header("Machine Learning Models")
+
+    target = st.selectbox(
+        "Select Target Variable",
+        numeric_cols
+    )
+
+    features = [
+        col for col in numeric_cols
+        if col != target
+    ]
+
+    X = df[features]
+    y = df[target]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=0.2,
+        random_state=42
+    )
+
+    lr_model = LinearRegression()
+    dt_model = DecisionTreeRegressor(random_state=42)
+    rf_model = RandomForestRegressor(random_state=42)
+
+    lr_model.fit(X_train, y_train)
+    dt_model.fit(X_train, y_train)
+    rf_model.fit(X_train, y_train)
+
+    lr_pred = lr_model.predict(X_test)
+    dt_pred = dt_model.predict(X_test)
+    rf_pred = rf_model.predict(X_test)
+
+    results_df = pd.DataFrame({
+
+        "Model": [
+            "Linear Regression",
+            "Decision Tree",
+            "Random Forest"
+        ],
+
+        "R² Score": [
+            r2_score(y_test, lr_pred),
+            r2_score(y_test, dt_pred),
+            r2_score(y_test, rf_pred)
+        ],
+
+        "MAE": [
+            mean_absolute_error(y_test, lr_pred),
+            mean_absolute_error(y_test, dt_pred),
+            mean_absolute_error(y_test, rf_pred)
+        ]
+    })
+
+    st.subheader("Model Performance")
+    st.dataframe(results_df)
+
+# =========================
+# PREDICTIONS
+# =========================
+if section == "Predictions":
+
+    st.header("Smart Predictions")
+
+    target = st.selectbox(
+        "Select Target",
+        numeric_cols
+    )
+
+    features = [
+        col for col in numeric_cols
+        if col != target
+    ]
+
+    X = df[features]
+    y = df[target]
+
+    model = RandomForestRegressor(random_state=42)
+    model.fit(X, y)
+
+    st.subheader("Enter Feature Values")
+
+    input_data = []
+
+    cols = st.columns(2)
+
+    for i, feature in enumerate(features):
+
+        value = cols[i % 2].number_input(
+            feature,
+            value=float(df[feature].mean())
+        )
+
+        input_data.append(value)
+
+    if st.button("Predict"):
+
+        prediction = model.predict(
+            np.array(input_data).reshape(1, -1)
+        )
+
+        st.success(
+            f"Predicted {target}: "
+            f"{round(prediction[0], 2)}"
+        )
+
+# =========================
+# DOWNLOAD REPORT
+# =========================
+st.download_button(
+    label="Download Report",
+    data=df.to_csv(index=False),
+    file_name="model_results.csv",
+    mime="text/csv"
+)
+
+# =========================
+# DISCLAIMER
+# =========================
+st.markdown(f"""
 <div style='
-background: rgba(255,255,255,0.06);
-padding:15px;
-border-radius:12px;
+background:{card_color};
+padding:18px;
+border-radius:18px;
 margin-top:20px;
-font-size:14px;
-color:#D3D3D3;
+border:1px solid {border_color};
+color:{secondary_text};
 '>
 
-⚠️ <b>Disclaimer:</b>  
-This dashboard provides predictive insights using machine learning algorithms.  
-Prediction accuracy depends on dataset quality, selected features, and model behavior.  
-Results are intended for analytical purposes only and may not fully represent real-world outcomes.
+<b>Disclaimer:</b><br><br>
+
+This dashboard provides predictive insights using machine learning algorithms.
+Prediction accuracy depends on dataset quality and selected features.
+Results are intended for analytical and educational purposes only.
+
+</div>
+""", unsafe_allow_html=True)
+
+# =========================
+# FOOTER
+# =========================
+st.markdown(f"""
+<div style='
+text-align:center;
+color:{secondary_text};
+margin-top:20px;
+padding:10px;
+'>
+
+Built using Streamlit & Scikit-learn<br>
+Developed by <b>Krithik</b>
 
 </div>
 """, unsafe_allow_html=True)
